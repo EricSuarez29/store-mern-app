@@ -7,7 +7,16 @@ export class CustomerService {
     }
 
     async find({limit = 4, offset = 0}){
-        return await Customer.find().skip(limit * offset).limit(limit);
+        limit = parseInt(limit);
+        offset = parseInt(offset);
+        const customers = await Customer.find().skip(limit * offset).limit(limit);
+        const totalPages = Math.ceil(await Customer.find().count() / limit);
+        return {
+            totalPages,
+            page: offset,
+            perPage: limit,
+            content: customers
+        }
     }
 
     async findOne(id){

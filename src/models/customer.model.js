@@ -24,7 +24,7 @@ const name = Joi.string().min(3),
     address = Joi.string(),
     email = Joi.string().email(),
     limit = Joi.number().integer(),
-    offset = Joi.number().integer()
+    offset = Joi.number().integer();
 
 export const postCustomerValidator = {
     body: Joi.object({

@@ -1,14 +1,12 @@
 import express from "express";
 import { validate } from "express-validation";
-import { getCustomerValidator, postCustomerValidator, putCustomerValidator } from "../models/customer.model";
+import { postCustomerValidator, putCustomerValidator } from "../models/customer.model";
 import { CustomerService } from "../services/customer.service";
 
 const router = express.Router();
 const service = new CustomerService();
 
-router.get('/', 
-validate(getCustomerValidator),
-async (req, res, next) =>{
+router.get('/', async (req, res, next) =>{
     try {
         const customers = await service.find(req.query);
         res.json(customers)
