@@ -62,6 +62,14 @@ export const Customers = () => {
         }).then(res => res.ok ? res.json(): Promise.reject(res));
     }
 
+    const removeById = (id) => {
+        return fetch(`/api/customers/${id}`,
+            {
+                method: 'DELETE'
+            }).then(res => res.ok? res.json(): Promise.reject(res))
+            .then(() => setCurrentPage(0));
+    }
+
     const setDataToEdit = (id) => {
         let currentCustomer = data.content.find(el => el._id === id);
         setCustomer(currentCustomer);
@@ -75,7 +83,7 @@ export const Customers = () => {
                 delete customer._id;
                 create(customer)
                     .then(handleClose)
-                    .then(err => console.log(err));
+                    .then(() => setCurrentPage(0));
             } else {
                 let id = customer._id;
                 delete customer._id;
@@ -84,7 +92,7 @@ export const Customers = () => {
                 console.log(customer)
                 update(id, customer)
                     .then(handleClose)
-                    .then(err => console.log(err));
+                    .then(() => setCurrentPage(0));
             }
         } catch (error) {
             console.log(error)
@@ -106,6 +114,7 @@ export const Customers = () => {
                             data={data}
                             currentPage={currentPage}
                             setCurrentPage={setCurrentPage}
+                            removeById={removeById}
                             setDataToEdit={setDataToEdit}
                             TableRow={CustomerTableRow}
                         />

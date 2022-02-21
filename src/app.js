@@ -1,7 +1,7 @@
 import express from "express";
 import logger from "morgan";
 import { boomErrorHandler } from "./middlewares/error.handler";
-import { validatorHandler } from "./middlewares/validator.handler";
+import { validationHandler } from "./middlewares/validation.handler";
 import router from "./routes"
 import path from "path";
 import { PORT } from "./config/config"
@@ -13,8 +13,8 @@ app.use(express.json())
 app.use(logger("dev"))
 
 app.use('/api', router);
-app.use(validatorHandler);
 app.use(boomErrorHandler);
+app.use(validationHandler);
 
 app.use(express.static(path.join(__dirname, "/public")))
 

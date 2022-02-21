@@ -1,12 +1,11 @@
 import express from "express";
-import { validate } from "express-validation";
-import { postCustomerValidator, putCustomerValidator } from "../models/customer.model";
 import { CustomerService } from "../services/customer.service";
 
 const router = express.Router();
 const service = new CustomerService();
 
-router.get('/', async (req, res, next) =>{
+router.get('/', 
+async (req, res, next) =>{
     try {
         const customers = await service.find(req.query);
         res.json(customers)
@@ -15,7 +14,8 @@ router.get('/', async (req, res, next) =>{
     }
 });
 
-router.get('/:id', async (req, res, next) =>{
+router.get('/:id', 
+async (req, res, next) =>{
     try {
         const { id } = req.params;
         const customer = await service.findOne(id);
@@ -26,7 +26,6 @@ router.get('/:id', async (req, res, next) =>{
 });
 
 router.post('/', 
-validate(postCustomerValidator),
 async (req, res, next) =>{
     try {
         const customerCreated = await service.create(req.body);
@@ -37,7 +36,6 @@ async (req, res, next) =>{
 });
 
 router.put('/:id', 
-validate(putCustomerValidator),
 async (req, res, next) =>{
     try {
         const { id } = req.params;

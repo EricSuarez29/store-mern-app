@@ -2,7 +2,7 @@ import React from 'react'
 import { Table } from 'react-bootstrap'
 import { PaginationMain } from './PaginationMain';
 
-export const TableMain = ({headers, data, currentPage, setCurrentPage, setDataToEdit, TableRow}) => {
+export const TableMain = ({headers, data, currentPage, setCurrentPage, setDataToEdit, removeById, TableRow}) => {
     return (
         <>
         <Table striped hover>
@@ -16,7 +16,10 @@ export const TableMain = ({headers, data, currentPage, setCurrentPage, setDataTo
             </thead>
             <tbody>
                 {
-                    data.content.map((el) => <TableRow setDataToEdit={setDataToEdit} key={el._id} data={el}/>)
+                    data.content.map((el) => <TableRow 
+                        setDataToEdit={setDataToEdit}
+                        removeById={removeById}
+                        key={el._id} data={el}/>)
                 }
             </tbody>
         </Table>
